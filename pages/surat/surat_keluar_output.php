@@ -485,11 +485,7 @@
 
     <section class="content">
         <div class="container-fluid">
-            
 
-          
-
-            
             <div class="container-fluid text-center">
             <div class="row">
                 <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12">
@@ -513,11 +509,26 @@
                             echo "<h3> NOMOR SURAT ANDA :</h3></br>";
                             echo "<h1 style= 'font-size : 90px;'>".$data['no']."<h1>";
                             ?> 
+
                         </div>
                     </div>
                 </div>
+                <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12">
+                
+            <form action = "../../index.html">
+             <button type="submit" class="btn btn-success waves-effect" >
+                    <i class="material-icons">home</i>
+                    <span>HOME</span>
+            </button>
+
+            
+            </form>
             </div>
             </div>
+            </div>
+            
+            
+    </div>
 
 
 
@@ -548,7 +559,7 @@
     <!-- Bootstrap Material Datetime Picker Plugin Js -->
     <script src="../../plugins/bootstrap-material-datetimepicker/js/bootstrap-material-datetimepicker.js"></script>
 
-    
+
 
 
     <!-- Custom Js -->

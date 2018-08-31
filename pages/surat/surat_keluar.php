@@ -39,6 +39,7 @@
     <!-- Memasukan config untuk database PHP -->
     <?php 
     include '../../php/config.php';
+
     ?>
 </head>
 
@@ -485,7 +486,7 @@
             </div>
         </aside>
         <!-- #END# Right Sidebar -->
-    </section>
+    </section>                         
 
     <section class="content">
         <div class="container-fluid">
@@ -499,7 +500,7 @@
                              FORM INPUT SURAT KELUAR
                             </h2>
                         </div>
-                        <form method="post" action="surat_keluar_output.php">
+                        <form method="POST">
                         <div class="body">
                             
                             <div class="row clearfix">
@@ -544,10 +545,13 @@
                                     </div>
                                 </div>
                             </div>
-                                <button type="submit" class="btn btn-success waves-effect">
-                                <i class="material-icons">chat</i>
+                           
+                            <div class="button-demo js-modal-buttons">
+                            <button type="button" name="btn_simpan" data-color="orange" class="btn bg-orange waves-effect">
+                                 <i class="material-icons">chat</i>
                                 <span>SUBMIT</span>
-                                </button>                                               
+                            </button>
+                            </div>                                              
                           </div>
                        </form>  
                     </div>
@@ -557,7 +561,7 @@
         <!-- Exportable Table -->
             <div class="row clearfix">
                 <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-                    <div class="card">
+                    <div class="card">r
                         <div class="header">
                             <h2>
                                 TABEL REGISTER SURAT KELUAR
@@ -586,33 +590,19 @@
                                     </tfoot>
                                     <tbody>
                                         <?php
-                                        $query = mysqli_query($koneksi,"SELECT * FROM surat_keluar");                                       
+                                        $query = mysqli_query($koneksi,"SELECT * FROM surat_keluar JOIN nama_unit USING(kd_unit)");                                       
                                         while ($data = mysqli_fetch_array($query)) {
                                         ?>
                                         <tr>
                                             <td><?php echo $data['no'];?></td> 
                                             <td><?php echo $data['tanggal'];?></td>  
                                             <td><?php echo $data['tujuan'];?></td>  
-                                            <td><?php echo $data['kd_unit'];?></td>  
+                                            <td><?php echo $data['nama'];?></td>  
                                             <td><?php echo $data['hal'];?></td> 
                                         </tr>
                                         <?php
                                         }
-                                        ?>                        
-
-
-
-
-
-                                      
-
-
-
-
-
-
-
-        
+                                        ?>
                                     </tbody>
                                 </table>
                             </div>
@@ -622,7 +612,25 @@
             </div>
             <!-- #END# Exportable Table -->
 
+                            
 
+            <!-- Default Size -->
+            <div class="modal fade" id="mdModal" tabindex="-1" role="dialog">
+                <div class="modal-dialog" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h4 class="modal-title" id="defaultModalLabel">STATUS</h4>
+                        </div>
+                        <div class="modal-body">
+                            
+                            </div>
+                            <div class="modal-footer">
+                            <button type="button" class="btn btn-link waves-effect" data-dismiss="modal">CLOSE</button>
+                            </div>
+                     
+                    </div>
+                </div>
+            </div>
 
         </div>
     </section>
@@ -645,6 +653,9 @@
     <!-- Autosize Plugin Js -->
     <script src="../../plugins/autosize/autosize.js"></script>
 
+    <!-- Bootstrap Notify Plugin Js -->
+    <script src="../../plugins/bootstrap-notify/bootstrap-notify.js"></script>
+
     <!-- Moment Plugin Js -->
     <script src="../../plugins/momentjs/moment.js"></script>
 
@@ -666,6 +677,7 @@
     <script src="../../js/admin.js"></script>
     <script src="../../js/pages/tables/jquery-datatable.js"></script>
     <script src="../../js/pages/forms/basic-form-elements.js"></script>
+    <script src="../../js/pages/ui/modals.js"></script>
 
     <!-- Demo Js -->
     <script src="../../js/demo.js"></script>
