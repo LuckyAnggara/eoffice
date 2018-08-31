@@ -36,6 +36,10 @@
 
     <!-- AdminBSB Themes. You can choose a theme from css/themes instead of get all themes -->
     <link href="../../css/themes/all-themes.css" rel="stylesheet" />
+    <!-- Memasukan config untuk database PHP -->
+    <?php 
+    include '../../php/config.php';
+    ?>
 </head>
 
 <body class="theme-red">
@@ -500,40 +504,42 @@
                             
                             <div class="row clearfix">
                                 <div class="col-sm-6">
+                                    <label for = "tujuan">TANGGAL</label>
                                     <div class="form-group">
                                         <div class="form-line">
-                                            <input type="text" class="datepicker form-control" name="tanggal" placeholder="Pilih Tanggal">
+                                            <input type="text" class="datepicker form-control" name="tanggal" placeholder="Tanggal Surat">
                                         </div>
                                     </div>
                                 </div>
                                 <div class="col-sm-6">
+                                    <label for = "tujuan">UNIT PENGIRIM</label>
                                     <select class="form-control show-tick" name="unit">
                                         <option value="">-- Pilih Unit Mana --</option>
-                                        <?php
-                                        include '../../php/config.php';
+                                        <?php                                        
                                         $query = mysqli_query($koneksi,"SELECT * FROM nama_unit");                                        
                                         while ($data = mysqli_fetch_array($query)) {
                                             echo "<option value =".$data['kd_unit'].">".$data['nama']."</option>";
                                         }
                                         ?>
-
                                     </select>
                                 </div>                            
                             </div>
                             <div class="row clearfix">
                                 <div class="col-sm-6">
-                                    <div class="form-group">
+                                    <label for = "tujuan">TUJUAN</label>
+                                    <div class="form-group">                                    
                                         <div class="form-line">
-                                            <input type="text" class="form-control" name ="tujuan" placeholder="Tujuan Surat" />
+                                            <input type="text" class="form-control" name ="tujuan" placeholder="Tujuan surat yang akan dikirim" />
                                         </div>
                                     </div>
                                 </div>
                             </div>  
                             <div class="row clearfix">
                                 <div class="col-sm-12">
+                                    <label for = "tujuan">PERIHAL</label>
                                     <div class="form-group">
                                         <div class="form-line">
-                                            <input type="text" class="form-control" name = "hal" placeholder="Perihal" />
+                                            <input type="text" class="form-control" name = "hal" placeholder="Perihal Surat" />
                                         </div>
                                     </div>
                                 </div>
@@ -546,9 +552,77 @@
                        </form>  
                     </div>
                 </div>
-            </div>
-            
+            </div>            
         <!-- #END# Select -->
+        <!-- Exportable Table -->
+            <div class="row clearfix">
+                <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                    <div class="card">
+                        <div class="header">
+                            <h2>
+                                TABEL REGISTER SURAT KELUAR
+                            </h2>
+                        </div>
+                        <div class="body">
+                            <div class="table-responsive">
+                                <table class="table table-bordered table-striped table-hover dataTable js-exportable">
+                                    <thead>
+                                        <tr>
+                                            <th>No Surat</th>
+                                            <th>Tanggal</th>
+                                            <th>Tujuan</th>
+                                            <th>Pengirim</th>
+                                            <th>Perihal</th>
+                                        </tr>
+                                    </thead>
+                                    <tfoot>
+                                        <tr>
+                                            <th>No Surat</th>
+                                            <th>Tanggal</th>
+                                            <th>Tujuan</th>
+                                            <th>Pengirim</th>
+                                            <th>Perihal</th>
+                                        </tr>
+                                    </tfoot>
+                                    <tbody>
+                                        <?php
+                                        $query = mysqli_query($koneksi,"SELECT * FROM surat_keluar");                                       
+                                        while ($data = mysqli_fetch_array($query)) {
+                                        ?>
+                                        <tr>
+                                            <td><?php echo $data['no'];?></td> 
+                                            <td><?php echo $data['tanggal'];?></td>  
+                                            <td><?php echo $data['tujuan'];?></td>  
+                                            <td><?php echo $data['kd_unit'];?></td>  
+                                            <td><?php echo $data['hal'];?></td> 
+                                        </tr>
+                                        <?php
+                                        }
+                                        ?>                        
+
+
+
+
+
+                                      
+
+
+
+
+
+
+
+        
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- #END# Exportable Table -->
+
+
 
         </div>
     </section>
@@ -577,8 +651,20 @@
     <!-- Bootstrap Material Datetime Picker Plugin Js -->
     <script src="../../plugins/bootstrap-material-datetimepicker/js/bootstrap-material-datetimepicker.js"></script>
 
+    <!-- Jquery DataTable Plugin Js -->
+    <script src="../../plugins/jquery-datatable/jquery.dataTables.js"></script>
+    <script src="../../plugins/jquery-datatable/skin/bootstrap/js/dataTables.bootstrap.js"></script>
+    <script src="../../plugins/jquery-datatable/extensions/export/dataTables.buttons.min.js"></script>
+    <script src="../../plugins/jquery-datatable/extensions/export/buttons.flash.min.js"></script>
+    <script src="../../plugins/jquery-datatable/extensions/export/jszip.min.js"></script>
+    <script src="../../plugins/jquery-datatable/extensions/export/pdfmake.min.js"></script>
+    <script src="../../plugins/jquery-datatable/extensions/export/vfs_fonts.js"></script>
+    <script src="../../plugins/jquery-datatable/extensions/export/buttons.html5.min.js"></script>
+    <script src="../../plugins/jquery-datatable/extensions/export/buttons.print.min.js"></script>
+
     <!-- Custom Js -->
     <script src="../../js/admin.js"></script>
+    <script src="../../js/pages/tables/jquery-datatable.js"></script>
     <script src="../../js/pages/forms/basic-form-elements.js"></script>
 
     <!-- Demo Js -->

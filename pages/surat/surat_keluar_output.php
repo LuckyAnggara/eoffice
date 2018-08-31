@@ -513,11 +513,6 @@
                             echo "<h3> NOMOR SURAT ANDA :</h3></br>";
                             echo "<h1 style= 'font-size : 90px;'>".$data['no']."<h1>";
                             ?> 
-
-
-
-
-
                         </div>
                     </div>
                 </div>
@@ -552,6 +547,9 @@
 
     <!-- Bootstrap Material Datetime Picker Plugin Js -->
     <script src="../../plugins/bootstrap-material-datetimepicker/js/bootstrap-material-datetimepicker.js"></script>
+
+    
+
 
     <!-- Custom Js -->
     <script src="../../js/admin.js"></script>
