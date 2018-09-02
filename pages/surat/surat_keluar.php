@@ -31,12 +31,19 @@
     <!-- Bootstrap Select Css -->
     <link href="../../plugins/bootstrap-select/css/bootstrap-select.css" rel="stylesheet" />
 
+        <!-- Sweetalert Css -->
+    <link href="../../plugins/sweetalert/sweetalert.css" rel="stylesheet" />
+
     <!-- Custom Css -->
     <link href="../../css/style.css" rel="stylesheet">
 
     <!-- AdminBSB Themes. You can choose a theme from css/themes instead of get all themes -->
     <link href="../../css/themes/all-themes.css" rel="stylesheet" />
     <!-- Memasukan config untuk database PHP -->
+    
+    <!-- Jquery Core Js -->
+    <script src="../../plugins/jquery/jquery.min.js"></script>
+
     <?php 
     include '../../php/config.php';
 
@@ -86,70 +93,7 @@
                         </a>
                         <ul class="dropdown-menu">
                             <li class="header">TASKS</li>
-                            <li class="body">
-                                <ul class="menu tasks">
-                                    <li>
-                                        <a href="javascript:void(0);">
-                                            <h4>
-                                                Footer display issue
-                                                <small>32%</small>
-                                            </h4>
-                                            <div class="progress">
-                                                <div class="progress-bar bg-pink" role="progressbar" aria-valuenow="85" aria-valuemin="0" aria-valuemax="100" style="width: 32%">
-                                                </div>
-                                            </div>
-                                        </a>
-                                    </li>
-                                    <li>
-                                        <a href="javascript:void(0);">
-                                            <h4>
-                                                Make new buttons
-                                                <small>45%</small>
-                                            </h4>
-                                            <div class="progress">
-                                                <div class="progress-bar bg-cyan" role="progressbar" aria-valuenow="85" aria-valuemin="0" aria-valuemax="100" style="width: 45%">
-                                                </div>
-                                            </div>
-                                        </a>
-                                    </li>
-                                    <li>
-                                        <a href="javascript:void(0);">
-                                            <h4>
-                                                Create new dashboard
-                                                <small>54%</small>
-                                            </h4>
-                                            <div class="progress">
-                                                <div class="progress-bar bg-teal" role="progressbar" aria-valuenow="85" aria-valuemin="0" aria-valuemax="100" style="width: 54%">
-                                                </div>
-                                            </div>
-                                        </a>
-                                    </li>
-                                    <li>
-                                        <a href="javascript:void(0);">
-                                            <h4>
-                                                Solve transition issue
-                                                <small>65%</small>
-                                            </h4>
-                                            <div class="progress">
-                                                <div class="progress-bar bg-orange" role="progressbar" aria-valuenow="85" aria-valuemin="0" aria-valuemax="100" style="width: 65%">
-                                                </div>
-                                            </div>
-                                        </a>
-                                    </li>
-                                    <li>
-                                        <a href="javascript:void(0);">
-                                            <h4>
-                                                Answer GitHub questions
-                                                <small>92%</small>
-                                            </h4>
-                                            <div class="progress">
-                                                <div class="progress-bar bg-purple" role="progressbar" aria-valuenow="85" aria-valuemin="0" aria-valuemax="100" style="width: 92%">
-                                                </div>
-                                            </div>
-                                        </a>
-                                    </li>
-                                </ul>
-                            </li>
+                            
                         </ul>
                     </li>
                     <!-- #END# Tasks -->
@@ -165,7 +109,7 @@
             <!-- User Info -->
             <div class="user-info">
                 <div class="image">
-                    <img src="images/user.png" width="48" height="48" alt="User" />
+                    <img src="../../images/user.jpg" width="48" height="48" alt="User" />
                 </div>
                 <div class="info-container">
                     <div class="name" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Lucky Anggara</div>
@@ -203,12 +147,12 @@
                                 </a>
                                 <ul class="ml-menu">
                                     <li class="active">
-                                        <a href="pages/forms/basic-form-elements.html">
+                                        <a href="#">
                                         Surat Keluar
                                         </a>
                                     </li>
                                     <li>
-                                        <a href="pages/forms/basic-form-elements.html">
+                                        <a href="../../pages/surat/surat_keluar_r.php">
                                         Surat Keluar Rahasia
                                         </a>
                                     </li>
@@ -486,8 +430,12 @@
             </div>
         </aside>
         <!-- #END# Right Sidebar -->
-    </section>                         
+    </section>                     
 
+
+                           
+
+   
     <section class="content">
         <div class="container-fluid">
 
@@ -500,21 +448,21 @@
                              FORM INPUT SURAT KELUAR
                             </h2>
                         </div>
-                        <form method="POST">
+                        <form method="POST" id="form_validation">
                         <div class="body">
                             
                             <div class="row clearfix">
                                 <div class="col-sm-6">
                                     <label for = "tujuan">TANGGAL</label>
-                                    <div class="form-group">
+                                    <div class="form-group form-float">
                                         <div class="form-line">
-                                            <input type="text" class="datepicker form-control" name="tanggal" placeholder="Tanggal Surat">
+                                            <input type="text" id = "tanggal" class="datepicker form-control" name="tanggal" placeholder="Tanggal Surat" required>
                                         </div>
                                     </div>
                                 </div>
                                 <div class="col-sm-6">
                                     <label for = "tujuan">UNIT PENGIRIM</label>
-                                    <select class="form-control show-tick" name="unit">
+                                    <select class="form-control show-tick" id = "unit"  name="unit" required>
                                         <option value="">-- Pilih Unit Mana --</option>
                                         <?php                                        
                                         $query = mysqli_query($koneksi,"SELECT * FROM nama_unit");                                        
@@ -528,9 +476,9 @@
                             <div class="row clearfix">
                                 <div class="col-sm-6">
                                     <label for = "tujuan">TUJUAN</label>
-                                    <div class="form-group">                                    
+                                    <div class="form-group form-float">                                    
                                         <div class="form-line">
-                                            <input type="text" class="form-control" name ="tujuan" placeholder="Tujuan surat yang akan dikirim" />
+                                            <input type="text" class="form-control" id = "tujuan" name ="tujuan" placeholder="Tujuan surat yang akan dikirim" required>
                                         </div>
                                     </div>
                                 </div>
@@ -538,30 +486,29 @@
                             <div class="row clearfix">
                                 <div class="col-sm-12">
                                     <label for = "tujuan">PERIHAL</label>
-                                    <div class="form-group">
+                                    <div class="form-group form-float">
                                         <div class="form-line">
-                                            <input type="text" class="form-control" name = "hal" placeholder="Perihal Surat" />
+                                            <input type="text" class="form-control" id = "hal" name = "hal" placeholder="Perihal Surat" required>
                                         </div>
                                     </div>
                                 </div>
                             </div>
-                           
-                            <div class="button-demo js-modal-buttons">
-                            <button type="button" name="btn_simpan" data-color="orange" class="btn bg-orange waves-effect">
+                         <!--    <div class ="s-modal-buttons"> -->
+                            <button type="button" id ="simpan" data-color="green"  class="btn bg-green btn-success waves ">
                                  <i class="material-icons">chat</i>
                                 <span>SUBMIT</span>
-                            </button>
-                            </div>                                              
+                            </button>  
+                           <!--  </div> -->
                           </div>
-                       </form>  
+                       </form>                         
                     </div>
                 </div>
             </div>            
         <!-- #END# Select -->
         <!-- Exportable Table -->
-            <div class="row clearfix">
+            <div class="row clearfix" id="tabelupdate">
                 <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-                    <div class="card">r
+                    <div class="card">
                         <div class="header">
                             <h2>
                                 TABEL REGISTER SURAT KELUAR
@@ -577,6 +524,7 @@
                                             <th>Tujuan</th>
                                             <th>Pengirim</th>
                                             <th>Perihal</th>
+                                            <th>Prefix Surat</th>
                                         </tr>
                                     </thead>
                                     <tfoot>
@@ -586,19 +534,21 @@
                                             <th>Tujuan</th>
                                             <th>Pengirim</th>
                                             <th>Perihal</th>
+                                            <th>Prefix Surat</th>
                                         </tr>
                                     </tfoot>
                                     <tbody>
                                         <?php
-                                        $query = mysqli_query($koneksi,"SELECT * FROM surat_keluar JOIN nama_unit USING(kd_unit)");                                       
+                                        $query = mysqli_query($koneksi,"SELECT * FROM surat_keluar JOIN nama_unit USING(kd_unit) ORDER BY no_surat DESC"); 
                                         while ($data = mysqli_fetch_array($query)) {
                                         ?>
                                         <tr>
-                                            <td><?php echo $data['no'];?></td> 
+                                            <td><?php echo $data['no_surat'];?></td> 
                                             <td><?php echo $data['tanggal'];?></td>  
                                             <td><?php echo $data['tujuan'];?></td>  
                                             <td><?php echo $data['nama'];?></td>  
                                             <td><?php echo $data['hal'];?></td> 
+                                            <td><?php echo $data['output'];?></td> 
                                         </tr>
                                         <?php
                                         }
@@ -610,34 +560,46 @@
                     </div>
                 </div>
             </div>
-            <!-- #END# Exportable Table -->
-
-                            
-
-            <!-- Default Size -->
+            <!-- #END# Exportable Table -->    
+        </div>
+    </section>
+     <!-- For Material Design Colors -->
             <div class="modal fade" id="mdModal" tabindex="-1" role="dialog">
                 <div class="modal-dialog" role="document">
                     <div class="modal-content">
                         <div class="modal-header">
-                            <h4 class="modal-title" id="defaultModalLabel">STATUS</h4>
+                            <h4 class="modal-title" id="defaultModalLabel">SURAT KELUAR</h4>
                         </div>
                         <div class="modal-body">
-                            
+                            STATUS!
+
+                            <div class="tampildata" id="tabelupdate">
+                                
                             </div>
-                            <div class="modal-footer">
-                            <button type="button" class="btn btn-link waves-effect" data-dismiss="modal">CLOSE</button>
-                            </div>
-                     
+                           
+
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" id="update" class="btn btn-link waves-effect" data-dismiss="modal">CLOSE</button>
+                        </div>
                     </div>
                 </div>
             </div>
+    
+                            <script type="text/javascript">
+                                $(document).ready(function(){
+                                    $("#simpan").click(function(){                                      
+                                        $.ajax({
+                                            type: 'POST',
+                                            success: function() {
+                                                $('#tabelupdate').load("../../php/tabelupdate.php");
+                                                
+                                            }
+                                        });
+                                    });
+                                
 
-        </div>
-    </section>
-
-    <!-- Jquery Core Js -->
-    <script src="../../plugins/jquery/jquery.min.js"></script>
-
+                                </script>    
     <!-- Bootstrap Core Js -->
     <script src="../../plugins/bootstrap/js/bootstrap.js"></script>
 
@@ -653,8 +615,17 @@
     <!-- Autosize Plugin Js -->
     <script src="../../plugins/autosize/autosize.js"></script>
 
+    <!-- Jquery Validation Plugin Css -->
+    <script src="../../plugins/jquery-validation/jquery.validate.js"></script>
+
+    <!-- JQuery Steps Plugin Js -->
+    <script src="../../plugins/jquery-steps/jquery.steps.js"></script>
+
     <!-- Bootstrap Notify Plugin Js -->
     <script src="../../plugins/bootstrap-notify/bootstrap-notify.js"></script>
+
+    <!-- SweetAlert Plugin Js -->
+    <script src="../../plugins/sweetalert/sweetalert.min.js"></script>
 
     <!-- Moment Plugin Js -->
     <script src="../../plugins/momentjs/moment.js"></script>
@@ -678,6 +649,9 @@
     <script src="../../js/pages/tables/jquery-datatable.js"></script>
     <script src="../../js/pages/forms/basic-form-elements.js"></script>
     <script src="../../js/pages/ui/modals.js"></script>
+    <script src="../../js/pages/forms/form-validation.js"></script>
+    <script src="../../js/pages/ui/dialogs.js"></script>
+
 
     <!-- Demo Js -->
     <script src="../../js/demo.js"></script>

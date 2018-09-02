@@ -10,9 +10,18 @@ $(function () {
     });
 });
 
+<?php
+include '../../config.php';
+$query = mysqli_query($koneksi, "SELECT no FROM surat_keluar ORDER BY no DESC LIMIT 1");
+$data = mysqli_fetch_array($query);
+?>
+
+
+
+
 function showNotification(colorName, text, placementFrom, placementAlign, animateEnter, animateExit) {
     if (colorName === null || colorName === '') { colorName = 'bg-black'; }
-    if (text === null || text === '') { text = 'Turning standard Bootstrap alerts'; }
+    if (text === null || text === '') { text = 'fggf'; }
     if (animateEnter === null || animateEnter === '') { animateEnter = 'animated fadeInDown'; }
     if (animateExit === null || animateExit === '') { animateExit = 'animated fadeOutUp'; }
     var allowDismiss = true;

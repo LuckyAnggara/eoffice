@@ -15,7 +15,7 @@ function getChartJs(type) {
                 labels: ["January", "February", "March", "April", "May", "June", "July"],
                 datasets: [{
                     label: "My First dataset",
-                    data: [65, 59, 80, 81, 56, 55, 40],
+                    data: [650, 59, 80, 81, 56, 550, 40],
                     borderColor: 'rgba(0, 188, 212, 0.75)',
                     backgroundColor: 'rgba(0, 188, 212, 0.3)',
                     pointBorderColor: 'rgba(0, 188, 212, 0)',

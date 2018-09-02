@@ -31,11 +31,19 @@
     <!-- Bootstrap Select Css -->
     <link href="../../plugins/bootstrap-select/css/bootstrap-select.css" rel="stylesheet" />
 
+        <!-- Sweetalert Css -->
+    <link href="../../plugins/sweetalert/sweetalert.css" rel="stylesheet" />
+
     <!-- Custom Css -->
     <link href="../../css/style.css" rel="stylesheet">
 
     <!-- AdminBSB Themes. You can choose a theme from css/themes instead of get all themes -->
     <link href="../../css/themes/all-themes.css" rel="stylesheet" />
+    <!-- Memasukan config untuk database PHP -->
+    <?php 
+    include '../../php/config.php';
+
+    ?>
 </head>
 
 <body class="theme-red">
@@ -81,70 +89,7 @@
                         </a>
                         <ul class="dropdown-menu">
                             <li class="header">TASKS</li>
-                            <li class="body">
-                                <ul class="menu tasks">
-                                    <li>
-                                        <a href="javascript:void(0);">
-                                            <h4>
-                                                Footer display issue
-                                                <small>32%</small>
-                                            </h4>
-                                            <div class="progress">
-                                                <div class="progress-bar bg-pink" role="progressbar" aria-valuenow="85" aria-valuemin="0" aria-valuemax="100" style="width: 32%">
-                                                </div>
-                                            </div>
-                                        </a>
-                                    </li>
-                                    <li>
-                                        <a href="javascript:void(0);">
-                                            <h4>
-                                                Make new buttons
-                                                <small>45%</small>
-                                            </h4>
-                                            <div class="progress">
-                                                <div class="progress-bar bg-cyan" role="progressbar" aria-valuenow="85" aria-valuemin="0" aria-valuemax="100" style="width: 45%">
-                                                </div>
-                                            </div>
-                                        </a>
-                                    </li>
-                                    <li>
-                                        <a href="javascript:void(0);">
-                                            <h4>
-                                                Create new dashboard
-                                                <small>54%</small>
-                                            </h4>
-                                            <div class="progress">
-                                                <div class="progress-bar bg-teal" role="progressbar" aria-valuenow="85" aria-valuemin="0" aria-valuemax="100" style="width: 54%">
-                                                </div>
-                                            </div>
-                                        </a>
-                                    </li>
-                                    <li>
-                                        <a href="javascript:void(0);">
-                                            <h4>
-                                                Solve transition issue
-                                                <small>65%</small>
-                                            </h4>
-                                            <div class="progress">
-                                                <div class="progress-bar bg-orange" role="progressbar" aria-valuenow="85" aria-valuemin="0" aria-valuemax="100" style="width: 65%">
-                                                </div>
-                                            </div>
-                                        </a>
-                                    </li>
-                                    <li>
-                                        <a href="javascript:void(0);">
-                                            <h4>
-                                                Answer GitHub questions
-                                                <small>92%</small>
-                                            </h4>
-                                            <div class="progress">
-                                                <div class="progress-bar bg-purple" role="progressbar" aria-valuenow="85" aria-valuemin="0" aria-valuemax="100" style="width: 92%">
-                                                </div>
-                                            </div>
-                                        </a>
-                                    </li>
-                                </ul>
-                            </li>
+                            
                         </ul>
                     </li>
                     <!-- #END# Tasks -->
@@ -160,7 +105,7 @@
             <!-- User Info -->
             <div class="user-info">
                 <div class="image">
-                    <img src="images/user.png" width="48" height="48" alt="User" />
+                    <img src="../../images/user.jpg" width="48" height="48" alt="User" />
                 </div>
                 <div class="info-container">
                     <div class="name" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Lucky Anggara</div>
@@ -198,12 +143,12 @@
                                 </a>
                                 <ul class="ml-menu">
                                     <li class="active">
-                                        <a href="pages/forms/basic-form-elements.html">
+                                        <a href="#">
                                         Surat Keluar
                                         </a>
                                     </li>
                                     <li>
-                                        <a href="pages/forms/basic-form-elements.html">
+                                        <a href="../../pages/surat/surat_keluar_r.php">
                                         Surat Keluar Rahasia
                                         </a>
                                     </li>
@@ -481,57 +426,154 @@
             </div>
         </aside>
         <!-- #END# Right Sidebar -->
-    </section>
+    </section>                         
 
+    <?php
+    
+    if(isset($_POST['simpan'])){
+        $query = mysqli_query($koneksi, "SELECT no FROM surat_keluar ORDER BY no DESC LIMIT 1");
+        $data = mysqli_fetch_array($query);
+        $no = $data['no']+1;
+        $date = $_POST['tanggal'];
+        $tanggal = date("Y-m-d", strtotime($date));
+        $unit = $_POST['unit'];
+        $tujuan = $_POST['tujuan'];
+        $hal = $_POST['hal'];
+        $output = "GRT/".$unit."/".$no."/".date('Y',strtotime($date));
+        $query = mysqli_query($koneksi, "SELECT * FROM surat_keluar WHERE no = '".$hal."'"); // cek dulu takut di reload
+        $sql = "INSERT INTO surat_keluar (tanggal,kd_unit,tujuan,hal,output) values ('".$tanggal."','".$unit."','".$tujuan."','".$hal."','".$output."')";
+        $query = mysqli_query($koneksi, $sql);
+        
+        
+
+    }
+
+    ?>
     <section class="content">
         <div class="container-fluid">
 
-            <div class="container-fluid text-center">
-            <div class="row">
-                <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12">
-                </div>
-                <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12">
+            <!-- SELECT UNIT -->
+            <div class="row clearfix  js-sweetalert">
+                <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
                     <div class="card">
-                        <div class="body bg-red">
-                           
-                            <?php
-                            include '../../php/config.php';
+                        <div class="header">
+                            <h2>
+                             FORM INPUT SURAT KELUAR
+                            </h2>
+                        </div>
+                        <form method="POST" action="">
+                        <div class="body">
                             
-
-
-                            $query = mysqli_query($koneksi, "SELECT no,output FROM surat_keluar ORDER BY no DESC LIMIT 1");
-                            // if($data['no'] == )
-                            $data = mysqli_fetch_array($query);
-                            echo "<h3> NOMOR SURAT ANDA :</h3></br>";
-                            echo "<h1 style= 'font-size : 90px;'>".$data['no']."<h1></br>";
-                            echo "<h4>".$data['output']."</h4>";
-                            ?> 
-
+                            <div class="row clearfix">
+                                <div class="col-sm-6">
+                                    <label for = "tujuan">TANGGAL</label>
+                                    <div class="form-group form-float">
+                                        <div class="form-line">
+                                            <input type="text" class="datepicker form-control" name="tanggal" placeholder="Tanggal Surat" required>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-sm-6">
+                                    <label for = "tujuan">UNIT PENGIRIM</label>
+                                    <select class="form-control show-tick" name="unit" required>
+                                        <option value="">-- Pilih Unit Mana --</option>
+                                        <?php                                        
+                                        $query = mysqli_query($koneksi,"SELECT * FROM nama_unit");                                        
+                                        while ($data = mysqli_fetch_array($query)) {
+                                            echo "<option value =".$data['kd_unit'].">".$data['nama']."</option>";
+                                        }
+                                        ?>
+                                    </select>
+                                </div>                            
+                            </div>
+                            <div class="row clearfix">
+                                <div class="col-sm-6">
+                                    <label for = "tujuan">TUJUAN</label>
+                                    <div class="form-group form-float">                                    
+                                        <div class="form-line">
+                                            <input type="text" class="form-control" name ="tujuan" placeholder="Tujuan surat yang akan dikirim" required>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>  
+                            <div class="row clearfix">
+                                <div class="col-sm-12">
+                                    <label for = "tujuan">PERIHAL</label>
+                                    <div class="form-group form-float">
+                                        <div class="form-line">
+                                            <input type="text" class="form-control" name = "hal" placeholder="Perihal Surat" required>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <button type="submit" name="simpan" data-color="green"  class="btn bg-green btn-success waves ">
+                                 <i class="material-icons">chat</i>
+                                <span>SUBMIT</span>
+                            </button>  
+                          </div>
+                       </form>                         
+                    </div>
+                </div>
+            </div>            
+        <!-- #END# Select -->
+        <!-- Exportable Table -->
+            <div class="row clearfix">
+                <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                    <div class="card">
+                        <div class="header">
+                            <h2>
+                                TABEL REGISTER SURAT KELUAR
+                            </h2>
+                        </div>
+                        <div class="body">
+                            <div class="table-responsive">
+                                <table class="table table-bordered table-striped table-hover dataTable js-exportable">
+                                    <thead>
+                                        <tr>
+                                            <th>No Surat</th>
+                                            <th>Tanggal</th>
+                                            <th>Tujuan</th>
+                                            <th>Pengirim</th>
+                                            <th>Perihal</th>
+                                            <th>Prefix Surat</th>
+                                        </tr>
+                                    </thead>
+                                    <tfoot>
+                                        <tr>
+                                            <th>No Surat</th>
+                                            <th>Tanggal</th>
+                                            <th>Tujuan</th>
+                                            <th>Pengirim</th>
+                                            <th>Perihal</th>
+                                            <th>Prefix Surat</th>
+                                        </tr>
+                                    </tfoot>
+                                    <tbody>
+                                        <?php
+                                        $query = mysqli_query($koneksi,"SELECT * FROM surat_keluar JOIN nama_unit USING(kd_unit)"); 
+                                        while ($data = mysqli_fetch_array($query)) {
+                                        ?>
+                                        <tr>
+                                            <td><?php echo $data['no'];?></td> 
+                                            <td><?php echo $data['tanggal'];?></td>  
+                                            <td><?php echo $data['tujuan'];?></td>  
+                                            <td><?php echo $data['nama'];?></td>  
+                                            <td><?php echo $data['hal'];?></td> 
+                                            <td><?php echo $data['output'];?></td> 
+                                        </tr>
+                                        <?php
+                                        }
+                                        ?>
+                                    </tbody>
+                                </table>
+                            </div>
                         </div>
                     </div>
                 </div>
-                <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12">
-                
-            <form action = "../../pages/surat/surat_keluar.php">
-             <button type="submit" class="btn btn-success waves-effect" >
-                    <i class="material-icons">home</i>
-                    <span>BACK TO HOME</span>
-            </button>
-
-            
-            </form>
             </div>
-            </div>
-            </div>
-            
-            
-    </div>
-
-
-
+            <!-- #END# Exportable Table -->    
         </div>
     </section>
-
     <!-- Jquery Core Js -->
     <script src="../../plugins/jquery/jquery.min.js"></script>
 
@@ -550,18 +592,43 @@
     <!-- Autosize Plugin Js -->
     <script src="../../plugins/autosize/autosize.js"></script>
 
+    <!-- Jquery Validation Plugin Css -->
+    <script src="../../plugins/jquery-validation/jquery.validate.js"></script>
+
+    <!-- JQuery Steps Plugin Js -->
+    <script src="../../plugins/jquery-steps/jquery.steps.js"></script>
+
+    <!-- Bootstrap Notify Plugin Js -->
+    <script src="../../plugins/bootstrap-notify/bootstrap-notify.js"></script>
+
+    <!-- SweetAlert Plugin Js -->
+    <script src="../../plugins/sweetalert/sweetalert.min.js"></script>
+
     <!-- Moment Plugin Js -->
     <script src="../../plugins/momentjs/moment.js"></script>
 
     <!-- Bootstrap Material Datetime Picker Plugin Js -->
     <script src="../../plugins/bootstrap-material-datetimepicker/js/bootstrap-material-datetimepicker.js"></script>
 
-
-
+    <!-- Jquery DataTable Plugin Js -->
+    <script src="../../plugins/jquery-datatable/jquery.dataTables.js"></script>
+    <script src="../../plugins/jquery-datatable/skin/bootstrap/js/dataTables.bootstrap.js"></script>
+    <script src="../../plugins/jquery-datatable/extensions/export/dataTables.buttons.min.js"></script>
+    <script src="../../plugins/jquery-datatable/extensions/export/buttons.flash.min.js"></script>
+    <script src="../../plugins/jquery-datatable/extensions/export/jszip.min.js"></script>
+    <script src="../../plugins/jquery-datatable/extensions/export/pdfmake.min.js"></script>
+    <script src="../../plugins/jquery-datatable/extensions/export/vfs_fonts.js"></script>
+    <script src="../../plugins/jquery-datatable/extensions/export/buttons.html5.min.js"></script>
+    <script src="../../plugins/jquery-datatable/extensions/export/buttons.print.min.js"></script>
 
     <!-- Custom Js -->
     <script src="../../js/admin.js"></script>
+    <script src="../../js/pages/tables/jquery-datatable.js"></script>
     <script src="../../js/pages/forms/basic-form-elements.js"></script>
+    <script src="../../js/pages/ui/modals.js"></script>
+    <script src="../../js/pages/forms/form-validation.js"></script>
+    <script src="../../js/pages/ui/dialogs.js"></script>
+    <script src="../../js/pages/ui/notifications.js"></script>
 
     <!-- Demo Js -->
     <script src="../../js/demo.js"></script>
